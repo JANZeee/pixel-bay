@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#eaf0e6"><title>方寸湾 · Pixel Bay — 城市交通版</title><meta name="description" content="一座小城，无限可能。可游玩的 3D 像素城市建设游戏。"><link rel="stylesheet" href="./style.css?v=20261110-traffic2"></head>
+<body>
+<div id="world" aria-label="3D 城市地图"></div>
+<div class="vignette"></div>
+<header class="topbar">
+ <div class="brand"><div class="brand-mark"><i></i><i></i><i></i><i></i></div><div><h1>方寸湾<span>PIXEL BAY</span></h1><p>一座小城，无限可能。</p></div></div>
+ <div class="stats-strip"><div class="stat"><span class="stat-label"><i data-icon="wallet"></i>城市资金</span><strong id="money">18,000<span>₵</span></strong><small id="income">+0 / 天</small></div><div class="stat"><span class="stat-label"><i data-icon="people"></i>居民</span><strong id="population">168</strong><small id="growth">正在安居乐业</small></div><div class="stat happiness-stat"><span class="stat-label"><i data-icon="smile"></i>幸福指数</span><strong id="happiness">82<span>%</span></strong><small id="happy-label">宜居小城</small></div></div>
+ <div class="top-actions"><button class="icon-button" id="graphics-btn" title="光影与画质 G" aria-label="光影与画质设置"></button><button class="icon-button" id="sound-btn" title="开启轻柔环境音" aria-label="开启环境音"><i data-icon="soundOff"></i></button><button class="icon-button" id="help-btn" title="玩法与快捷键" aria-label="玩法说明"><i data-icon="help"></i></button><button class="save-button" id="save-btn"><i data-icon="save"></i><span>保存城市</span><b id="saved-dot"></b></button></div>
+</header>
+<aside class="left-panel">
+ <button class="city-label light-chip" id="light-chip"><span class="live-dot"></span><span id="render-label">写实光影</span><span id="light-label">17:30 · 夕照</span><span class="tiny-tag">G ↗</span></button>
+ <section class="mission panel"><div class="section-eyebrow">下一站 · 城市成长</div><div class="mission-heading"><div class="mission-icon"><i data-icon="flag"></i></div><div><h2 id="goal-title">初具规模</h2><p id="goal-description">让 250 位居民在这里安家</p></div><span id="goal-badge">01</span></div><div class="progress-track"><div id="goal-progress"></div></div><div class="mission-footer"><span id="goal-count">168 / 250 位居民</span><button id="goals-btn">全部里程碑 <span>↗</span></button></div></section>
+ <section class="advisor panel"><div class="advisor-avatar">✦</div><div><h3>市长，欢迎回家。</h3><p id="advisor-text">沿着道路规划住宅，再为新邻居建一座公园吧。</p></div><button id="dismiss-advisor" title="收起提示" aria-label="收起提示">×</button></section>
+ <section class="inspection panel hidden" id="inspection"><button class="close-inline" id="close-inspection" aria-label="关闭地块信息">×</button><div class="section-eyebrow">地块信息 <span id="cell-coord"></span></div><h2 id="cell-title"></h2><p id="cell-detail"></p><div id="cell-status"></div><div id="cell-actions"></div></section>
+</aside>
+<aside class="right-panel"><section class="pulse panel"><div class="section-title"><h2>城市脉搏</h2><span class="live-dot"></span></div><div class="utility"><div><span><i data-icon="bolt"></i>电力</span><b id="power-label">0 / 0</b></div><div class="utility-track"><i id="power-bar"></i></div></div><div class="utility"><div><span><i data-icon="drop"></i>供水</span><b id="water-label">0 / 0</b></div><div class="utility-track water"><i id="water-bar"></i></div></div><div class="demand-title">城市需求 <span>R / C / I</span></div><div class="demand-bars"><div><i id="demand-r"></i><span>住宅</span></div><div><i id="demand-c"></i><span>商业</span></div><div><i id="demand-i"></i><span>工业</span></div></div><button id="budget-btn" class="panel-link"><i data-icon="chart"></i>财政与税收 <span>↗</span></button></section>
+ <div class="view-controls panel"><button id="rotate-left" title="向左旋转 Q" aria-label="向左旋转"><i data-icon="rotateLeft"></i></button><button id="rotate-right" title="向右旋转 E" aria-label="向右旋转"><i data-icon="rotateRight"></i></button><span></span><button id="zoom-in" title="放大" aria-label="放大">+</button><button id="zoom-out" title="缩小" aria-label="缩小">−</button><button id="reset-view" title="重置视角 H" aria-label="重置视角"><i data-icon="home"></i></button></div>
+</aside>
+<aside id="traffic-panel" class="traffic-panel panel hidden" aria-label="交通观察">
+ <div class="traffic-heading"><div><small>MOBILITY / LIVE</small><h2>城市开始流动。</h2></div><button id="traffic-close" aria-label="关闭交通观察">×</button></div>
+ <div class="traffic-network" id="traffic-network">正在读取道路网络</div>
+ <div class="traffic-score"><div><strong id="traffic-flow">—</strong><span>%</span></div><div><b>行驶效率</b><small>当前车速 / 巡航车速</small></div></div>
+ <div class="traffic-stats"><div><b id="traffic-active">0</b><span>在途车辆</span></div><div><b id="traffic-waiting">0</b><span>停车等待</span></div><div><b id="traffic-completed">0</b><span>完成行程</span></div></div>
+ <label class="traffic-overlay-control"><span>道路拥堵图层</span><input type="checkbox" id="traffic-overlay"></label>
+ <div class="traffic-legend"><span><i></i>顺畅</span><span><i></i>缓行</span><span><i></i>排队</span></div>
+ <div class="traffic-follow-actions"><button id="traffic-follow">跟随一辆车 ↗</button><button id="traffic-next" class="hidden" aria-label="跟随下一辆车">换一辆</button></div>
+ <p id="traffic-trip">选择跟随，在自己的街区里转一圈。</p>
+ <div class="traffic-hotspots"><h3>需要关注的路段</h3><div id="traffic-hotspots">车流正在出发。</div></div>
+ <p class="traffic-note" id="traffic-note">抽样通勤与消费出行，随城市人口产生。红灯会降低实时效率。</p>
+</aside><div class="world-caption"><span>方 寸 湾</span><small>YOUR LITTLE WORLD, GROWING.</small></div>
+<div id="hover-tip" class="hover-tip hidden"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<div class="bottom-left"><div class="time-control panel"><button id="pause-btn" title="暂停 / 继续 空格" aria-label="暂停模拟"><i data-icon="pause"></i></button><div class="date"><b id="date">第 001 天</b><span id="scene-time"><i class="sun"></i>夕照 · 晴</span></div><div class="speed-controls"><button class="active" data-speed="1">1×</button><button data-speed="2">2×</button><button data-speed="3">3×</button></div></div><span id="save-status">本地自动存档已开启</span><span id="render-fps" class="render-fps">— FPS</span></div>
+<nav class="city-command-bar panel" aria-label="城市建设管理"><button id="catalog-btn">▦ 建造目录</button><button id="studio-btn">⌂ DIY 工坊</button><button id="terrain-btn">▧ 地形</button><span></span><button id="undo-btn" title="撤销 Ctrl/⌘ Z" disabled>↶ 撤销</button><button id="redo-btn" title="重做 Ctrl/⌘ Shift Z" disabled>↷ 重做</button><button id="traffic-btn" aria-expanded="false" title="交通观察 T">⇄ 交通</button><button id="archives-btn">▣ 城市档案</button></nav><div class="build-dock"><div class="tool-detail"><span id="tool-indicator"></span><strong id="tool-name">观察城市</strong><span id="tool-desc">点击地块查看详情</span><b id="tool-cost">自由探索</b></div><nav id="toolbar" class="toolbar panel" aria-label="建造工具"></nav><div class="control-hint"><span><kbd>左键</kbd> 建造 / 选择</span><span><kbd>右键拖动</kbd> 旋转</span><span><kbd>W A S D</kbd> 平移</span><span><kbd>滚轮</kbd> 缩放</span></div></div>
+<div class="minimap panel"><div class="minimap-head"><span>城市总览</span><span>N ↑</span></div><canvas id="minimap" width="128" height="128" aria-label="城市缩略地图"></canvas><span class="map-scale">32 × 32 街区</span></div>
+<div class="modal-backdrop hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal panel"><button class="modal-close" id="close-modal" aria-label="关闭弹窗">×</button><div class="section-eyebrow">PIXEL BAY / MAYOR'S OFFICE</div><h2 id="modal-title"></h2><div id="modal-content"></div></div></div>
+<div id="loading"><div class="loading-mark">▥</div><h2>正在唤醒你的小城</h2><p>种下树木，打开窗，迎接新一天。</p></div>
+<script type="module" src="./main.js?v=20261110-traffic2"></script>
+</body></html>
